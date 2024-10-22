@@ -17,6 +17,7 @@ import {
   View,
 } from 'react-native';
 
+import * as Sentry from '@sentry/react-native';
 import {
   Colors,
   DebugInstructions,
@@ -24,6 +25,14 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import {Config} from './Config';
+
+Sentry.init({
+  dsn: Config.sentryDsn,
+
+  // uncomment the line below to enable Spotlight (https://spotlightjs.com)
+  // enableSpotlight: __DEV__,
+});
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -115,4 +124,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default Sentry.wrap(App);
