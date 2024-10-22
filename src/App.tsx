@@ -8,6 +8,7 @@
 import type {PropsWithChildren} from 'react';
 import React from 'react';
 import {
+  Button,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -29,6 +30,8 @@ import {Config} from './Config';
 
 Sentry.init({
   dsn: Config.sentryDsn,
+  debug: true,
+  tracesSampleRate: 1.0,
 
   // uncomment the line below to enable Spotlight (https://spotlightjs.com)
   // enableSpotlight: __DEV__,
@@ -81,6 +84,7 @@ function App(): React.JSX.Element {
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
         <Header />
+        <Button title="Crash app" onPress={() => Sentry.nativeCrash()} />
         <View
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
